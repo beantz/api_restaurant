@@ -10,6 +10,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
     ->withMiddleware(function (Middleware $middleware) {
         //definindo globais
         $middleware->use([
@@ -19,15 +20,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
         //definindo apelidos
         $middleware->alias([
-            'acesso.log' => App\Http\Middleware\AcessLogMiddleware::class
+            'acesso.log' => App\Http\Middleware\AcessLogMiddleware::class,
+            'autenticacao' => App\Http\Middleware\AutenticacaoMiddleware::class
         ]);
 
         //definindo a grupo especifico como web ou api
         $middleware->web(append:[
-            App\Http\Middleware\AutenticacaoMiddleware::class
+            App\Http\Middleware\AcessLogMiddleware::class
         ]);
         
     })
+    
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

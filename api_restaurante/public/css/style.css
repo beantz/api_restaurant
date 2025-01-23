@@ -1,0 +1,85 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #aa5050;
+    color: white;
+}
+
+/*cardapio*/
+.container {
+    display: flex;
+}
+
+.cardapio {
+    background-color: #aa5050;
+    padding: 20px;
+    width: 25%; /* Ajuste a largura conforme necessário */
+    margin-right: 20px;
+}
+
+.formulario {
+    width: 25%;
+    background-color: #aa5050;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.formulario input[type="text"],
+.formulario select {
+    margin-bottom: 10px; /* Ajuste o valor conforme necessário */
+}
+
+#forogin {
+    display: block;
+}
+
+/* view adm */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajuste a altura conforme necessário */
+}
+
+.lista-horizontal {
+    list-style: none;
+    display: flex;
+    flex-direction: column; /* Muda a direção para coluna */
+    align-items: center; /* Centraliza os itens horizontalmente dentro da coluna */
+    padding: 0;
+    margin: 0 auto;
+}
+
+/*total pedidos*/
+.container-totalpedidos {
+    text-align: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+.lista-horizontal li {
+    margin-bottom: 20px; /* Espaçamento entre os itens da lista */
+    list-style: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Centraliza os links da paginação horizontalmente */
+    margin-top: 20px; /* Espaçamento entre a lista e a paginação */
+}
+
+.pagination a {
+    text-decoration: none; /* Remove a sublinhado dos links */
+    padding: 15px;
+}

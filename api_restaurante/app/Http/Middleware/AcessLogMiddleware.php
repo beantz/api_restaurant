@@ -14,9 +14,8 @@ class AcessLogMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, String $nome): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        //return $next($request);
 
         $ip = $request->server->get('REMOTE_ADDR');
         $rota = $request->getRequestUri();
@@ -26,7 +25,6 @@ class AcessLogMiddleware
             'rota' => $rota
         ]);
 
-        return Response("DADOS REGISTRADOS e o nome é $nome!");
-        //return $next($request);
+        return $next($request);
     }
 }
