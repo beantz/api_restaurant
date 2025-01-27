@@ -1,8 +1,10 @@
 
 <div class="formulario">
     <h2>Faça seu pedido</h2>
-    <form action="{{ route('atualizar.pedido') }}" method="post">
+    <form action="{{ route($rota) }}" method="post">
+    @if($rota == 'atualizar.pedido')
         <input type="hidden" name="id" value="{{ $pedidoAnterior->id }}">
+    @endif
     @csrf  
         <label for="nome">Nome:</label>
         <input type="text" value="{{ $pedidoAnterior->nome ?? old('nome') }}" id="nome" name="nome">

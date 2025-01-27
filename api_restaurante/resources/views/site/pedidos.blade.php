@@ -1,6 +1,7 @@
 @extends('site.layouts.basico')
 
 @section('conteudo')
+    {{ isset($msg) ? $msg : '' }}
     <div class="container">
         <div class="cardapio">
             <h2>Cardápio</h2>
@@ -17,7 +18,7 @@
                 </ul>
             @endforeach
         </div>
-        @component('site._components.form_pedidos', ['pagamento' => $pagamento])
+        @component('site._components.form_pedidos', ['pagamento' => $pagamento, 'rota' => 'pedidos.salvar']);
         
         @endcomponent
     </div>    

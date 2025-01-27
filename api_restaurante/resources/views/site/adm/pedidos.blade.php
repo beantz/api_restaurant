@@ -12,7 +12,7 @@
                     {{ $key['refeição'] }}
                     {{ $key['bebida'] }}
 
-                    <button class="btn-editar"><a href={{ route('editar.pedido', ['id' => $key->id]) }}>Editar</a></button>
+                    <button class="btn-editar"><a href={{ route('editar.pedido', ['id' => $key->id, 'rota' => 'atualizar.pedido']) }}>Editar</a></button>
                     <button class="btn-deletar"><a href={{ route('deletar.pedido',  ['id' => $key->id]) }}>Excluir</a></button>
                     <br>
                 @endforeach
@@ -21,6 +21,7 @@
     </div>
     <div class="paginate">
         {{ $pedidos->links() }}
+        {{ $pedidos->firstItem() }} de {{ $pedidos->count() }}
     </div>
 
 @endsection

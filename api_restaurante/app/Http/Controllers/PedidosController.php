@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\pedidos;
 use App\Models\bebidas;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\pagamento;
 use App\Models\refeições;
-use Illuminate\Database\Eloquent\Collection;
-use Symfony\Component\Console\Input\Input;
 
 class PedidosController extends Controller
 {
     
-    public function pedidos(){
+    public function pedidos(Request $request){
 
         $bebidas = bebidas::all();
         
@@ -21,7 +20,9 @@ class PedidosController extends Controller
 
         $pagamento = pagamento::all();
 
-        return view('site.pedidos', ['pagamento' => $pagamento, 'bebidas' => $bebidas, 'refeições' => $refeições]);
+        $msg = $request->query('msg');
+
+        return view('site.pedidos', ['pagamento' => $pagamento, 'bebidas' => $bebidas, 'refeições' => $refeições, 'msg' => $msg]);
 
     }
 
@@ -41,11 +42,40 @@ class PedidosController extends Controller
             'min' => 'Os dados precisam ter no mínimo 10 caracteres'
         ]
     
-    );
-    
-        $totalPedido = pedidos::create($request->all());
+        );
+
+        $nameRequest = $request->nome;
         
-        return redirect()->route('pedido.total', ['pedido' => $totalPedido]);
+        //verificar se cliente ja ta cadastrado
+        $existClient = Cliente::where('nome', 'like', "%$nameRequest%")->first();
+        
+        $desconto = false;
+
+        if($existClient) {
+            
+            //verificar se cliente possui cupons
+            if($existClient->cupons == "amida") {
+
+                $desconto = true;
+            
+            }
+
+            $totalPedido = pedidos::create([
+                'nome' => $request->nome,
+                'refeição' => $request->refeição,
+                'bebida' => $request->bebida,
+                'pagamento_id' => $request->pagamento_id,
+                'id_cliente' => $existClient->id,
+            ]);
+
+            return redirect()->route('pedido.total', ['pedido' => $totalPedido, 'desconto' => $desconto]);
+
+        } else {
+
+            //fazer processo de cadastramento do cliente
+            
+
+        }
 
     }
 
@@ -86,7 +116,7 @@ class PedidosController extends Controller
 
     public function deletar(Request $request) {
 
-        $pedidos = pedidos::find($request->id)->delete();
+        pedidos::find($request->id)->delete();
 
         return redirect()->route('adm.pedidos', ['msg' => 'Produdo deletado com sucesso.']);
 

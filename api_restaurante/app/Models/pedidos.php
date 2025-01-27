@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class pedidos extends Model
 {
-    protected $fillable = ['nome', 'refeição', 'bebida', 'pagamento_id'];
+    protected $fillable = ['nome', 'refeição', 'bebida', 'pagamento_id', 'id_cliente'];
 }
