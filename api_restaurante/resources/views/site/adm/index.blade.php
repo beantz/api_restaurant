@@ -12,7 +12,7 @@
             <button><a href="{{ route('adm.cardapio') }}">Cardápio</a></button>
         </li>
         <li>
-            <button><a href="{{ route('adm.clientes') }}">Clientes</a></button>
+            <button><a href="{{ route('cliente.index') }}">Clientes</a></button>
         </li>
     </ul>
 @endsection

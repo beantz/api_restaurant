@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use PhpParser\Builder\Function_;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,12 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::table('pedidos', function(Blueprint $table) {
-            $table->dropColumn('id_cliente');
 
-            $table->unsignedBigInteger('id_cliente');
-
-            $table->foreign('id_cliente')->references('id')->on('clientes');
+            //adicionando nova
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
@@ -28,9 +27,12 @@ return new class extends Migration
     {
         Schema::table('pedidos', function(Blueprint $table) {
 
-            $table->dropForeign('id_clientes');
+            $table->dropForeign('pedidos_cliente_id_foreign');
 
-            $table->dropColumn('id_cliente');
+            $table->dropColumn('cliente_id');
+
         });
+
+
     }
 };

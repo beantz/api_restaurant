@@ -12,15 +12,23 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        
+        $clientes = Cliente::all();
+
+        return view('site.clientes.clientes-index', ['clientes' => $clientes]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $msg = $request->query('msg');
+
+        if($msg == 1){
+            $msg = 'Você precisa estar cadastrado para fazer pedidos.';
+        }
+        
+        return view('site.clientes.create_edit_clientes', ['msg' => $msg]);
     }
 
     /**
@@ -28,7 +36,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Cliente::create($request->all());
+
+        return redirect()->route('pedidos.index');
     }
 
     /**
@@ -36,7 +46,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('site.clientes.cliente', ['cliente' => $cliente]);
     }
 
     /**
@@ -44,7 +54,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view('site.clientes.create_edit_clientes', ['cliente' => $cliente]);
     }
 
     /**
@@ -52,7 +62,9 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->all());
+
+        return redirect()->route('cliente.show', ['cliente' => $cliente]);
     }
 
     /**
@@ -60,6 +72,8 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+
+        return redirect()->route('cliente.index');
     }
 }

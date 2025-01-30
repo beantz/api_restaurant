@@ -65,16 +65,16 @@ class PedidosController extends Controller
                 'refeição' => $request->refeição,
                 'bebida' => $request->bebida,
                 'pagamento_id' => $request->pagamento_id,
-                'id_cliente' => $existClient->id,
+                'cliente_id' => $existClient->id,
             ]);
 
             return redirect()->route('pedido.total', ['pedido' => $totalPedido, 'desconto' => $desconto]);
 
         } else {
 
-            //fazer processo de cadastramento do cliente
+            //redirecionar para formulario de cliente se cadastrar
+            return redirect()->route('cliente.create', ['msg' => 1]);
             
-
         }
 
     }

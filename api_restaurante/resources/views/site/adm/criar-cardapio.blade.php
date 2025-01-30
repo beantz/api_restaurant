@@ -1,4 +1,3 @@
-
 <div class="container">
     <h2>Criar {{ $tipo }}</h2>
     <form action="{{ route('create.cardapio', ['tipo' => $tipo]) }}" method="post">
