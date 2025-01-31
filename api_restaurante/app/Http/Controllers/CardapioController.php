@@ -11,7 +11,6 @@ class CardapioController extends Controller
     public function index() {
 
         /*metodo withTrashed necessario pois estou usando o softDeletes*/
-        //ver esse retorno aqui q ta incluindo as deleted_at preenchidas
         $bebidas = bebidas::withTrashed()->whereNull('deleted_at')->simplePaginate(3);
 
         $refeições = refeições::withTrashed()->whereNull('deleted_at')->simplePaginate(3);

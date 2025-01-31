@@ -83,3 +83,15 @@ th {
     text-decoration: none; /* Remove a sublinhado dos links */
     padding: 15px;
 }
+
+#lixeira, img {
+    margin-top: 15px;
+    margin-left: 61px;
+    height: 25px;
+    width: 25px;
+}
+
+#titleLixeira, h2, p {
+    text-align: center;
+    padding: 20px;
+}

@@ -44,7 +44,7 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show(Cliente $cliente, Request $request)
     {
         return view('site.clientes.cliente', ['cliente' => $cliente]);
     }
@@ -64,7 +64,7 @@ class ClienteController extends Controller
     {
         $cliente->update($request->all());
 
-        return redirect()->route('cliente.show', ['cliente' => $cliente]);
+        return redirect()->route('cliente.show', ['cliente' => $cliente]); 
     }
 
     /**

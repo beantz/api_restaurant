@@ -4,18 +4,17 @@
     <div class="container">
         <div class="clientes">
             <h2>Todos Clientes</h2>
+            <a href="{{ route('cliente.create') }}">Adicionar novo cliente</a>
             @foreach ($clientes as $key => $cliente)
                 <ul>
                     <li>{{ $cliente->nome }}
-                    <form action="{{ route('cliente.edit', $cliente->id) }}" method="post">
-                        @csrf
-                        <a href="{{ route('cliente.edit', $cliente->id) }}">Editar</a>
-                    </form>
+                    <a href="{{ route('cliente.edit', ['cliente' => $cliente->id]) }}">Editar</a>
                     <br>
-                    <form action="{{ route('cliente.destroy', $cliente->id) }}" method="post">
-                        @csrf
+                    
+                    <form action="{{ route('cliente.destroy', ['cliente' => $cliente->id]) }}" method="POST">
                         @method('DELETE')
-                        <a href="{{ route('cliente.destroy', $cliente->id) }}">Excluir</a>
+                        @csrf
+                        <button type="submit">Excluir</button>
                     </form>
                     </li>
                 </ul>

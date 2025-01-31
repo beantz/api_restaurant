@@ -8,6 +8,7 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\pagamento;
 use App\Models\refeições;
+use Illuminate\Support\Facades\DB;
 
 class PedidosController extends Controller
 {
@@ -52,7 +53,7 @@ class PedidosController extends Controller
         $desconto = false;
 
         if($existClient) {
-            
+
             //verificar se cliente possui cupons
             if($existClient->cupons == "amida") {
 
@@ -67,6 +68,10 @@ class PedidosController extends Controller
                 'pagamento_id' => $request->pagamento_id,
                 'cliente_id' => $existClient->id,
             ]);
+
+            //atualizando a coluna de quantidade de pedidos sozinha no banco
+            $existClient->quantidade_pedidos++;
+            Cliente::where('id', $existClient->id)->update(['quantidade_pedidos' => $existClient->quantidade_pedidos]);
 
             return redirect()->route('pedido.total', ['pedido' => $totalPedido, 'desconto' => $desconto]);
 

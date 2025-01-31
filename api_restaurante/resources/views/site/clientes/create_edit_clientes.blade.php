@@ -1,4 +1,5 @@
 <div class="container">
+    {{ isset($msg) ? $msg : '' }}
     @if(isset($cliente->id))
         <h2>Atualizar dados de cliente</h2>
         <form action="{{ route('cliente.update', $cliente) }}" method="post">
@@ -25,7 +26,7 @@
         <br>
 
         <label for="Cupons">Cupons:</label>
-        <input type="number" value="{{ $cliente->cupons ?? old('Cupons') }}" id="Cupons" name="Cupons">
+        <input type="string" value="{{ $cliente->cupons ?? old('Cupons') }}" id="Cupons" name="Cupons">
         <br>
 
         <button type="submit">Cadastrar</button>

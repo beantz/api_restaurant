@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardapioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\LixeiraController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\TotalPedidoController;
@@ -35,5 +36,10 @@ Route::middleware('autenticacao')->prefix('/adm')->group( function() {
     Route::get('/cardapio/editar/{id}/{tipo}', [CardapioController::class, 'editar'])->name('editar.cardapio');
     Route::post('/cardapio/editar/{tipo}', [CardapioController::class, 'update'])->name('atualizar.cardapio');
     Route::get('/cardapio/delete/{id}/{tipo}', [CardapioController::class, 'destroy'])->name('delete.cardapio');
+
+    //lixeira
+    Route::get('/lixeira', [LixeiraController::class, 'dataDeletes'])->name('dados.deletados');
+    Route::get('/lixeira/restaurar/{id}/{type}', [LixeiraController::class, 'restore'])->name('dados.restaurar');
+    Route::delete('/lixeira/deletar/{id}/{type}', [LixeiraController::class, 'destroy'])->name('dados.deletar');
 
 });
