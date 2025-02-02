@@ -14,4 +14,10 @@ class bebidas extends Model
     protected $fillable = ['nome', 'preço'];
 
     use SoftDeletes;
+
+    public function total_pedido() {
+
+        return $this->hasOne('App\Models\pedidoTotal', 'bebida_id', 'id');
+
+    }
 }

@@ -15,6 +15,7 @@ class ClienteController extends Controller
         $clientes = Cliente::all();
 
         return view('site.clientes.clientes-index', ['clientes' => $clientes]);
+
     }
 
     /**

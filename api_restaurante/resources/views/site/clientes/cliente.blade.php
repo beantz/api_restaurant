@@ -8,8 +8,9 @@
                 <li>Nome: {{ $cliente->nome }}</li>
                 <li>CPF: {{ isset($cliente->cpf) ? $cliente->cpf : 'Não possui cpf cadastrado'  }}</li>
                 <li>Quantidade de Pedidos: {{ $cliente->quantidade_pedidos }}</li>
+                <li>Pedidos Feitos: {{ $cliente->pedidos->refeição }} e {{ $cliente->pedidos->bebida }}</li>
                 <li>Cupons: {{ isset($cliente->cupons) ? $cliente->cupons : 'Não possui cupons' }}</li>
             </ul>
         </div>
-    </div>    
+    </div>
 @endsection

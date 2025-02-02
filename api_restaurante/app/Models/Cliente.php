@@ -10,4 +10,8 @@ class Cliente extends Model
     use SoftDeletes;
     
     protected $fillable = ['nome', 'cpf', 'quantidade_pedidos', 'cupons'];
+
+    public function pedidos() {
+        return $this->hasOne('App\Models\pedidos');
+    }
 }

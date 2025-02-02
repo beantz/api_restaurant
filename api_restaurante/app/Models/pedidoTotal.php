@@ -10,4 +10,5 @@ class pedidoTotal extends Model
     protected $table = 'total_pedido';
     
     protected $fillable = ['nome', 'refeição_id', 'bebida_id', 'total'];
+
 }
