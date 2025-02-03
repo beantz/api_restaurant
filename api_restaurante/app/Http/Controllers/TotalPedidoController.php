@@ -12,12 +12,9 @@ class TotalPedidoController extends Controller
 {
 
     public function principal(Request $request, $desconto = false){
-
-        //recuperar o id na url
-        $id_pedido = $request->query('pedido');
-
+        
         //recuperando e passando o obj do pedido total
-        $pedido = pedidos::find($id_pedido);
+        $pedido = pedidos::find($request->pedido);
 
         //retornar nome da refeição
         $comida = refeições::where('nome', $pedido->refeição)->first();
@@ -41,9 +38,8 @@ class TotalPedidoController extends Controller
 
         }
 
-        //mandando pro banco
         $pedido = pedidoTotal::create([
-            'nome' => $pedido->nome,
+            'nome' => $pedido->cliente->nome,
             'refeição_id' => $comida->id,
             'bebida_id' => $bebida->id,
             'total' => $valorTotal
@@ -52,7 +48,7 @@ class TotalPedidoController extends Controller
         $valorTotalFormatado = number_format($valorTotal, 2, ',', '.');
 
         //retornando tudo pra view
-        return view('site.totalPedido' , ['nome' => $pedido->nome, 'total' => $valorTotalFormatado, 'bebida' => $bebida->nome, 'comida' => $comida->nome, 'id' => $pedido->id]);
+        return view('site.totalPedido' , ['nome' => $pedido->nome, 'total' => $valorTotalFormatado, 'bebida' => $pedido->bebidas->nome, 'comida' => $pedido->refeições->nome, 'id' => $pedido->id]);
         
     }
 }

@@ -21,9 +21,11 @@ class PedidosController extends Controller
 
         $pagamento = pagamento::all();
 
+        $clientes = Cliente::all();
+
         $msg = $request->query('msg');
 
-        return view('site.pedidos', ['pagamento' => $pagamento, 'bebidas' => $bebidas, 'refeições' => $refeições, 'msg' => $msg]);
+        return view('site.pedidos', ['pagamento' => $pagamento, 'bebidas' => $bebidas, 'refeições' => $refeições, 'msg' => $msg, 'clientes' => $clientes]);
 
     }
 
@@ -32,46 +34,42 @@ class PedidosController extends Controller
 
         $request->validate([
 
-            'nome' => 'required|min:5',
             'refeição' => 'required|min:5',
             'bebida' => 'required|min:5',
-            'pagamento_id' => 'required'
+            'pagamento_id' => 'required',
+            'cliente_id' => 'exists:clientes,id|required'
 
         ],
         [
             'required' => 'Insira o(a) :attribute por favor',
-            'min' => 'Os dados precisam ter no mínimo 10 caracteres'
-        ]
-    
-        );
-
-        $nameRequest = $request->nome;
+            'min' => 'Os dados precisam ter no mínimo 10 caracteres',
+            'cliente_id.exists' => 'Você precisa inserir dados do cliente'
+        ]);
         
         //verificar se cliente ja ta cadastrado
-        $existClient = Cliente::where('nome', 'like', "%$nameRequest%")->first();
+        $cliente = Cliente::find($request->cliente_id)->first();
         
         $desconto = false;
 
-        if($existClient) {
+        if($cliente) {
 
             //verificar se cliente possui cupons
-            if($existClient->cupons == "amida") {
+            if($cliente->cupons == "amida") {
 
                 $desconto = true;
             
             }
 
             $totalPedido = pedidos::create([
-                'nome' => $request->nome,
+                'cliente_id' => $cliente->id,
                 'refeição' => $request->refeição,
                 'bebida' => $request->bebida,
                 'pagamento_id' => $request->pagamento_id,
-                'cliente_id' => $existClient->id,
             ]);
 
             //atualizando a coluna de quantidade de pedidos sozinha no banco
-            $existClient->quantidade_pedidos++;
-            Cliente::where('id', $existClient->id)->update(['quantidade_pedidos' => $existClient->quantidade_pedidos]);
+            $cliente->quantidade_pedidos++;
+            $cliente->update(['quantidade_pedidos' => $cliente->quantidade_pedidos]);
 
             return redirect()->route('pedido.total', ['pedido' => $totalPedido, 'desconto' => $desconto]);
 
@@ -94,7 +92,7 @@ class PedidosController extends Controller
     public function todosPedidos() {
 
         //pegar todos os pedidos
-        $pedidos = pedidos::paginate(7);
+        $pedidos = pedidos::with(['cliente', 'pagamento'])->paginate(7);
 
         //return dd($pedidos);
         return view('site.adm.pedidos', ['pedidos' => $pedidos]);
@@ -107,7 +105,9 @@ class PedidosController extends Controller
 
         $pagamento = pagamento::all();
 
-        return view('site.adm.editar', ['pagamento' => $pagamento, 'pedidoAnterior' => $pedidoAnterior]);
+        $clientes = Cliente::all();
+
+        return view('site.adm.editar', ['pagamento' => $pagamento, 'pedidoAnterior' => $pedidoAnterior, 'clientes' => $clientes]);
 
     }
 

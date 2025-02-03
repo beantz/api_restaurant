@@ -6,10 +6,10 @@
         <input type="hidden" name="id" value="{{ $pedidoAnterior->id }}">
     @endif
     @csrf  
-        <label for="nome">Nome:</label>
+        {{-- <label for="nome">Nome:</label>
         <input type="text" value="{{ $pedidoAnterior->nome ?? old('nome') }}" id="nome" name="nome">
         {{ $errors->has('nome') ? $errors->first('nome') : ''}}
-        <br>
+        <br> --}}
         <label for="refeicao">Refeição:</label>
         <input type="text" value="{{ $pedidoAnterior->refeição ?? old('refeição') }}" id="refeição" name="refeição">
         {{ $errors->has('refeição') ? $errors->first('refeição') : ''}}
@@ -21,13 +21,23 @@
 
         <label for="pagamento_id">Forma de Pagamento:</label>
         <select id="pagamento_id" name="pagamento_id">
-        @foreach ($pagamento as $key => $nomePag)
+            @foreach ($pagamento as $nomePag)
 
-            <option value="{{ $nomePag->id }}" {{ $pedidoAnterior->pagamento_id ?? old('pagamento_id') == $key ? 'selected' : '' }}>{{ $nomePag->nome }}</option>
+                <option value="{{ $nomePag->id }}" {{ ($pedidoAnterior->pagamento_id ?? old('pagamento_id')) == $nomePag->id ? 'selected' : '' }}>{{ $nomePag->nome }}</option>
 
-        @endforeach
+            @endforeach
         </select>
         <br>
+        <select id="cliente_id" name="cliente_id">
+            <option>-- Insira o nome do cliente --</option>
+            @foreach ($clientes as $cliente)
+
+                <option value="{{ $cliente->id }}" {{ ($pedidoAnterior->cliente_id ?? old('cliente_id')) == $cliente->id ? 'selected' : '' }}>{{ $cliente->nome }}</option>
+
+            @endforeach 
+        </select>
+        {{ $errors->has('cliente_id') ? $errors->first('cliente_id') : ''}}
         <button type="submit">Enviar Pedido</button>
     </form>
+
 </div>

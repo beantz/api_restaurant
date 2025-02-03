@@ -6,16 +6,17 @@
         <ul class="lista-horizontal">
             <li>
                 <h2>Pedidos</h2>
-                @foreach ($pedidos as $key => $ped)
+                @foreach ($pedidos as $key => $pedido)
                     pedido número: {{ $key }}
-                    {{ $ped->nome }}
-                    {{ $ped->refeição }}
-                    {{ $ped->bebida }}
-                    Nome Cliente: {{ $ped->cliente->nome }}
-                    Cupon: {{ $ped->cliente->cupon ?? 'não possui' }}
+                    {{ $pedido->nome }}
+                    {{ $pedido->refeição }}
+                    {{ $pedido->bebida }}
+                    Nome Cliente: {{ $pedido->cliente->nome }}
+                    Cupon: {{ $pedido->cliente->cupon ?? 'não possui' }}
+                    Pagamento: {{ $pedido->pagamento->nome }}
 
-                    <button class="btn-editar"><a href={{ route('editar.pedido', ['id' => $key, 'rota' => 'atualizar.pedido']) }}>Editar</a></button>
-                    <button class="btn-deletar"><a href={{ route('deletar.pedido',  ['id' => $key]) }}>Excluir</a></button>
+                    <button class="btn-editar"><a href={{ route('editar.pedido', ['id' => $pedido->id, 'rota' => 'atualizar.pedido']) }}>Editar</a></button>
+                    <button class="btn-deletar"><a href={{ route('deletar.pedido',  ['id' => $pedido->id]) }}>Excluir</a></button>
                     <br>
                 @endforeach
             </li>

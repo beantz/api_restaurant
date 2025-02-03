@@ -18,7 +18,7 @@
                 </ul>
             @endforeach
         </div>
-        @component('site._components.form_pedidos', ['pagamento' => $pagamento, 'rota' => 'pedidos.salvar']);
+        @component('site._components.form_pedidos', ['pagamento' => $pagamento, 'rota' => 'pedidos.salvar', 'clientes' => $clientes]);
         
         @endcomponent
     </div>    
