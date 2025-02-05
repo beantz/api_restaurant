@@ -1,5 +1,7 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'visualize seu cliente')
+
 @section('conteudo')
     <div class="container">
         <div class="clientes">

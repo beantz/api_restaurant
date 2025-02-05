@@ -8,7 +8,6 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\pagamento;
 use App\Models\refeições;
-use Illuminate\Support\Facades\DB;
 
 class PedidosController extends Controller
 {
@@ -47,7 +46,7 @@ class PedidosController extends Controller
         ]);
         
         //verificar se cliente ja ta cadastrado
-        $cliente = Cliente::find($request->cliente_id)->first();
+        $cliente = Cliente::where('id', $request->cliente_id)->first();
         
         $desconto = false;
 
@@ -99,7 +98,7 @@ class PedidosController extends Controller
 
     }
 
-    public function editar(Request $request, $id) {
+    public function editar($id) {
 
         $pedidoAnterior = pedidos::where('id', $id)->first();
 
@@ -127,4 +126,20 @@ class PedidosController extends Controller
 
     }
 
+    //retornar view para pesquisar
+    public function pesquisarPedidos() {
+
+        return view('site.pesquisar');
+
+    }
+
+    public function listar(Request $request) {
+
+        $pedidos = pedidos::where('refeição', 'like' , $request->input('search').'%')->paginate(4);
+
+        //retornar pedidos para uma rota get
+        return view('site.listar-pedidos', ['pedidos' => $pedidos, 'request' => $request->all()]);
+
+    }
+    
 }

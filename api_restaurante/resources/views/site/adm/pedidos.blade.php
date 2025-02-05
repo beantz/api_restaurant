@@ -1,11 +1,15 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'Pedidos')
+
 @section('conteudo')
     {{ isset($msg) ? $msg : '' }}
     <div class="container-totalpedidos">
         <ul class="lista-horizontal">
             <li>
                 <h2>Pedidos</h2>
+                <a href="{{ route('pesquisar.pedidos') }}">Pesquisar por pedidos</a>
+                <br>
                 @foreach ($pedidos as $key => $pedido)
                     pedido número: {{ $key }}
                     {{ $pedido->nome }}

@@ -1,5 +1,7 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'Total do seu pedido')
+
 @section('conteudo')
     <h2>Ola {{ $nome }}, este é o seu pedido</h2>
 

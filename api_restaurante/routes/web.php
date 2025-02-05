@@ -29,6 +29,9 @@ Route::middleware('autenticacao')->prefix('/adm')->group( function() {
     Route::get('/pedidos/editar/{id}', [PedidosController::class, 'editar'])->name('editar.pedido');
     Route::post('/pedidos/editar/pedido', [PedidosController::class, 'update'])->name('atualizar.pedido');
     Route::get('/pedidos/deletar', [PedidosController::class, 'deletar'])->name('deletar.pedido');
+
+    Route::get('/pedidos/pesquisar', [PedidosController::class, 'pesquisarPedidos'])->name('pesquisar.pedidos');
+    Route::get('/pedidos/listar', [PedidosController::class, 'listar'])->name('pegar.pedidos');
     
     Route::get('/cardapio', [CardapioController::class, 'index'])->name('adm.cardapio');
     Route::get('/cardapio/criar/{tipo}', [CardapioController::class, 'create'])->name('criar.cardapio');

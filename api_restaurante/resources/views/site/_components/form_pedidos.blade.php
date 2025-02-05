@@ -6,10 +6,7 @@
         <input type="hidden" name="id" value="{{ $pedidoAnterior->id }}">
     @endif
     @csrf  
-        {{-- <label for="nome">Nome:</label>
-        <input type="text" value="{{ $pedidoAnterior->nome ?? old('nome') }}" id="nome" name="nome">
-        {{ $errors->has('nome') ? $errors->first('nome') : ''}}
-        <br> --}}
+        
         <label for="refeicao">Refeição:</label>
         <input type="text" value="{{ $pedidoAnterior->refeição ?? old('refeição') }}" id="refeição" name="refeição">
         {{ $errors->has('refeição') ? $errors->first('refeição') : ''}}

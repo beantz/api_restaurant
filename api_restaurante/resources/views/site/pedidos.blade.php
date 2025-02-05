@@ -1,5 +1,7 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'Faça seu pedido')
+
 @section('conteudo')
     {{ isset($msg) ? $msg : '' }}
     <div class="container">

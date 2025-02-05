@@ -1,5 +1,7 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'pagina do adm')
+
 @section('conteudo')
     <div class="container">
         <h2>Ola Adm!<h2>

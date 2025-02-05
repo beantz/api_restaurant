@@ -1,5 +1,7 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'Lixeira')
+
 @section('conteudo')
     {{ isset($msg) ? $msg : '' }}
     <h2 id="titleLixeira">Dados deletados.</h2>

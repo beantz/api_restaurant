@@ -1,6 +1,9 @@
 @extends('site.layouts.basico')
 
+@section('titulo', 'Cardápio')
+
 @section('conteudo')
+    <br>
     {{ isset($msg) ? $msg : '' }}
     <div class="container">
         <div class="cardapio">
