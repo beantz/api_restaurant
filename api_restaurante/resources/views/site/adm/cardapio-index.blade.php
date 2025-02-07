@@ -15,6 +15,7 @@
                 <ul>
                     <li>{{ $refeição->nome }} : {{ $refeição->preço }}</li>
                 </ul>
+                <button class="btn-editar"><a href="{{ route('refeiçãoIngredientes.create', ['id' => $refeição->id]) }}">Adicionar ingrediente</a></button>
                 <button class="btn-editar"><a href="{{ route('editar.cardapio', ['id' => $refeição->id, 'tipo' => 'refeição']) }}">Editar</a></button>
                 <button class="btn-deletar"><a href="{{ route('delete.cardapio', ['id' => $refeição->id, 'tipo' => 'refeição']) }}">Excluir</a></button>
             @endforeach

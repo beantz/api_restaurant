@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\CardapioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\IngredientesController;
 use App\Http\Controllers\LixeiraController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidosController;
+use App\Http\Controllers\RefeiçõesIngredientesController;
 use App\Http\Controllers\TotalPedidoController;
-use App\Models\Cliente;
 use Illuminate\Support\Facades\Route;
 
 /* middleware global vem primeiro e depois o especifico na rota */
@@ -29,6 +30,9 @@ Route::middleware('autenticacao')->prefix('/adm')->group( function() {
     Route::get('/pedidos/editar/{id}', [PedidosController::class, 'editar'])->name('editar.pedido');
     Route::post('/pedidos/editar/pedido', [PedidosController::class, 'update'])->name('atualizar.pedido');
     Route::get('/pedidos/deletar', [PedidosController::class, 'deletar'])->name('deletar.pedido');
+
+    Route::resource('/refeiçãoIngredientes', RefeiçõesIngredientesController::class);
+    Route::resource('/ingredientes', IngredientesController::class);
 
     Route::get('/pedidos/pesquisar', [PedidosController::class, 'pesquisarPedidos'])->name('pesquisar.pedidos');
     Route::get('/pedidos/listar', [PedidosController::class, 'listar'])->name('pegar.pedidos');

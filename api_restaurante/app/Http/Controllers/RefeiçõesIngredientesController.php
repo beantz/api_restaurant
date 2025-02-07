@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ingredientes;
+use App\Models\ingredientes_produtos;
+use App\Models\refeições;
 use Illuminate\Http\Request;
 
 class RefeiçõesIngredientesController extends Controller
@@ -11,15 +14,19 @@ class RefeiçõesIngredientesController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //retornar view com dados da refeição e input para adicionar ingredientes
+        $refeição = refeições::find($request->id);
+        $ingredientes = ingredientes::all();
+
+        return view('site.adm.refeição_ingredientes.index', ['refeição' => $refeição, 'ingredientes' => $ingredientes]);
     }
 
     /**
@@ -27,7 +34,24 @@ class RefeiçõesIngredientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validações
+        $regras = [
+            'ingredientes_id' => 'exists:ingredientes,id'
+        ];
+
+        $feedback = [
+            'exists.ingredientes' => 'O ingrediente informado não existe'
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $refeição_ingredientes = new ingredientes_produtos();
+        $refeição_ingredientes->refeições_id = $request->refeição_id;
+        $refeição_ingredientes->ingredientes_id = $request->ingredientes_id;
+        $refeição_ingredientes->save();
+
+        return redirect()->route('refeiçãoIngredientes.create', ['id' => $request->refeição_id]);
+
     }
 
     /**

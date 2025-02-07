@@ -11,8 +11,14 @@ class refeições extends Model
 
     use HasFactory;
 
+    use SoftDeletes;
+
     protected $fillable = ['nome', 'preço'];
 
-    use SoftDeletes;
+    public function ingredientes() {
+
+        return $this->belongsToMany('App\Models\ingredientes', 'refeições_ingredientes', 'refeições_id', 'ingredientes_id');
+
+    }
 
 }
