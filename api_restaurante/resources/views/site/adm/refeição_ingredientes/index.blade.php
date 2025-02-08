@@ -9,7 +9,10 @@
             <ul>
                 <li>Nome: {{ $refeição->nome }}</li>
                 <li>Preço: {{ $refeição->preço }}</li>
-                <li>Ingredientes: {{ $refeição->ingredientes }}</li>
+                @foreach ($refeição->ingredientes as $ingrediente)
+                    <li>Ingredientes: {{ $ingrediente->nome }}</li>
+                    <li>Data de cadastramento: {{ $ingrediente->pivot->created_at->format('d/m/Y') }}</li>
+                @endforeach
                 <br>
 
                 <form action="{{ route('refeiçãoIngredientes.store') }}" method="post">
@@ -23,6 +26,9 @@
                         @endforeach                
                     </select>
                     {{ $errors->has('ingredientes_id') ? $errors->first('ingredientes_id') : ''}}
+
+                    <input type="number" name="quantidade" value="{{ old('quantidade') ? old('quantidade') : ''}}" placeholder="Insira a quantidade do produto">
+                    {{ $errors->has('quantidade') ? $errors->first('quantidade') : ''}}
 
                     <button type="submit">Cadastrar</button>
                 </form>    

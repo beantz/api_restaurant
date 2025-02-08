@@ -36,11 +36,13 @@ class RefeiçõesIngredientesController extends Controller
     {
         //validações
         $regras = [
-            'ingredientes_id' => 'exists:ingredientes,id'
+            'ingredientes_id' => 'exists:ingredientes,id',
+            'quantidade' => 'required'
         ];
 
         $feedback = [
-            'exists.ingredientes' => 'O ingrediente informado não existe'
+            'exists' => 'O ingrediente informado não existe',
+            'required' => 'O campo :attribute precisa ser preenchido'
         ];
 
         $request->validate($regras, $feedback);
@@ -48,6 +50,7 @@ class RefeiçõesIngredientesController extends Controller
         $refeição_ingredientes = new ingredientes_produtos();
         $refeição_ingredientes->refeições_id = $request->refeição_id;
         $refeição_ingredientes->ingredientes_id = $request->ingredientes_id;
+        $refeição_ingredientes->quantidade = $request->quantidade;
         $refeição_ingredientes->save();
 
         return redirect()->route('refeiçãoIngredientes.create', ['id' => $request->refeição_id]);

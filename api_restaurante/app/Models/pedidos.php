@@ -16,6 +16,4 @@ class pedidos extends Model
         return $this->belongsTo('App\Models\pagamento');
     }
 
-    //fazer com q ao criar e atualizar um novo pedido seja possivel fazer alterações de cliente tambem, por um select para inserir o cliente
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ingredientes;
 use Illuminate\Http\Request;
 
 class IngredientesController extends Controller
@@ -11,7 +12,9 @@ class IngredientesController extends Controller
      */
     public function index()
     {
-        //
+        $ingredientes = ingredientes::all();
+
+        return view('site.adm.ingredientes.index', ['ingredientes' => $ingredientes]);
     }
 
     /**

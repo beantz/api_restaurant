@@ -17,7 +17,7 @@ class refeições extends Model
 
     public function ingredientes() {
 
-        return $this->belongsToMany('App\Models\ingredientes', 'refeições_ingredientes', 'refeições_id', 'ingredientes_id');
+        return $this->belongsToMany('App\Models\ingredientes', 'refeições_ingredientes')->withPivot('created_at');
 
     }
 

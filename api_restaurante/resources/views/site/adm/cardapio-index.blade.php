@@ -11,6 +11,8 @@
             <h3>Refeições</h3>
             <p>Adicionar nova refeição</p>
             <button class="btn-editar"><a href="{{ route('criar.cardapio', ['tipo' => 'refeição']) }}">Novo</a></button>
+            <p>Ingredientes</p>
+            <button class="btn-editar"><a href="{{ route('ingredientes.index') }}">Ingredientes</a></button>
             @foreach ($refeições as $key => $refeição)
                 <ul>
                     <li>{{ $refeição->nome }} : {{ $refeição->preço }}</li>
