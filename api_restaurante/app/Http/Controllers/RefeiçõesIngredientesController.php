@@ -47,12 +47,16 @@ class RefeiçõesIngredientesController extends Controller
 
         $request->validate($regras, $feedback);
 
+        /*
         $refeição_ingredientes = new ingredientes_produtos();
         $refeição_ingredientes->refeições_id = $request->refeição_id;
         $refeição_ingredientes->ingredientes_id = $request->ingredientes_id;
         $refeição_ingredientes->quantidade = $request->quantidade;
         $refeição_ingredientes->save();
-
+        */
+        $refeição = refeições::find($request->refeição_id);
+        $refeição->ingredientes()->attach($request->ingredientes_id, ['quantidade' => $request->quantidade]);
+        
         return redirect()->route('refeiçãoIngredientes.create', ['id' => $request->refeição_id]);
 
     }
@@ -84,8 +88,8 @@ class RefeiçõesIngredientesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(String $id)
     {
-        //
+       //
     }
 }

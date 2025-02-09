@@ -23,6 +23,7 @@
 
                         @foreach ($ingredientes as $ingrediente)
                             <option value="{{ $ingrediente->id }}">{{ $ingrediente->nome }}</option>
+        
                         @endforeach                
                     </select>
                     {{ $errors->has('ingredientes_id') ? $errors->first('ingredientes_id') : ''}}
